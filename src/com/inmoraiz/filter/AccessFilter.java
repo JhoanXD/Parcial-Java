@@ -43,6 +43,10 @@ public class AccessFilter implements Filter {
         }
 
         String rol = String.valueOf(session.getAttribute("usuarioRol"));
+        if (rol != null) {
+            rol = rol.trim();
+        }
+
         if (!hasPermission(uri, rol)) {
             response.sendRedirect(contextPath + "/access_denied.jsp");
             return;
@@ -86,6 +90,10 @@ public class AccessFilter implements Filter {
     }
 
     private boolean hasPermission(String uri, String rol) {
+        if ("ADMINISTRADOR".equals(rol)) {
+            return true;
+        }
+
         if (uri.startsWith("/admin/")) {
             return "ADMINISTRADOR".equals(rol);
         }

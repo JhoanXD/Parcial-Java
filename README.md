@@ -26,7 +26,7 @@ ParcialVerdadero/
 ├── admin/                      Páginas exclusivas del rol ADMINISTRADOR
 ├── cliente/                    Páginas exclusivas del rol CLIENTE
 ├── propiedades/                CRUD de propiedades (rol INMOBILIARIA/ADMINISTRADOR)
-├── imagenes/                   Gestión de galería de imágenes de propiedades
+├── imagenes/                   CRUD de imagenes (subir, guardar imagenes nuevas)
 ├── Css/inmo_custom-theme.css   Tema visual (variables de Bootstrap)
 ├── database/
 │   ├── 01_schema.sql           DDL — creación de la base de datos y tablas
@@ -36,6 +36,7 @@ ParcialVerdadero/
 │   └── 05_migracion_documentos.sql   Migración: estado de revisión en documento_solicitud
 ├── docs/                       Documentación Scrum y de base de datos (ver más abajo)
 ├── uploads/documentos/         Archivos radicados por los clientes
+|── uploads/imagenes/           Imagenes de propiedades
 ├── WEB-INF/
 │   ├── JSPF/                   Fragmentos reutilizables (conexión, head, navbar, footer)
 │   ├── classes/com/inmoraiz/filter/AccessFilter.class
@@ -72,8 +73,3 @@ ParcialVerdadero/
 - [`docs/product_backlog.md`](docs/product_backlog.md) — historias de usuario priorizadas con criterios de aceptación
 - [`docs/sprint1.md`](docs/sprint1.md), [`docs/sprint2.md`](docs/sprint2.md), [`docs/sprint3.md`](docs/sprint3.md) — Planning, Review y Retrospective de cada sprint
 
-## Pendiente antes de la entrega final
-
-- [ ] Registrar `AccessFilter` en `web.xml` (o con `@WebFilter` en el `.java` fuente) para que el control de acceso quede centralizado en un Filter real, tal como exige el enunciado, y no solo distribuido en cada JSP.
-- [ ] Exportar el diagrama MER como imagen (`docs/MER.png`) para adjuntarlo a la sustentación.
-- [ ] Si se despliega en línea, documentar aquí la URL pública de la app y de la base de datos.
