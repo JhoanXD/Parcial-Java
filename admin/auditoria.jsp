@@ -1,0 +1,7 @@
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@ include file="/WEB-INF/JSPF/inmo_db-conexion.jspf" %>
+<%@ page import="java.sql.*" %>
+<%if(session.getAttribute("usuarioId")==null||!"ADMINISTRADOR".equals(session.getAttribute("usuarioRol"))){response.sendRedirect("../login.jsp?error=acceso");return;}String tituloPagina="Auditoría | Inmoraiz";%>
+<!DOCTYPE html><html lang="es"><head><%@ include file="/WEB-INF/JSPF/inmo_head.jspf" %></head><body><%@ include file="/WEB-INF/JSPF/inmo_navbar.jspf" %><main class="container py-5"><h1 class="fw-bold">Auditoría del sistema</h1><p class="text-muted mb-4">Accesos y cambios registrados.</p><div class="table-responsive card border-0 shadow-sm"><table class="table mb-0"><thead><tr><th>Fecha</th><th>Usuario</th><th>Acción</th><th>Tabla</th><th>Detalle</th></tr></thead><tbody><%try{Class.forName("com.mysql.cj.jdbc.Driver");try(Connection c=abrirConexion();PreparedStatement p=c.prepareStatement("SELECT a.fecha_evento,u.correo,a.accion,a.tabla_afectada,a.detalle FROM auditoria a LEFT JOIN usuario u ON u.id_usuario=a.id_usuario ORDER BY a.fecha_evento DESC")){try(ResultSet r=p.executeQuery()){while(r.next()){%><tr><td><%=r.getTimestamp(1)%></td><td><%=r.getString(2)%></td><td><%=r.getString(3)%></td><td><%=r.getString(4)%></td><td><%=r.getString(5)%></td></tr><%}}}}catch(Exception e){%><tr><td colspan="5" class="text-danger">No fue posible consultar la auditoría.</td></tr><%}%></tbody></table></div></main><%@ include file="/WEB-INF/JSPF/inmo_footer.jspf" %></body></html>
+
+

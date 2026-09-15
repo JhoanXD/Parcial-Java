@@ -1,0 +1,11 @@
+<%@ page import="java.sql.Connection" %>
+<%@ page import="java.sql.DriverManager" %>
+<%!
+private Connection abrirConexion() throws Exception {
+    Class.forName("com.mysql.cj.jdbc.Driver");
+    String url = System.getProperty("inmoraiz.db.url", "jdbc:mysql://localhost:3306/inmobiliaria_db?useSSL=false&serverTimezone=America/Bogota");
+    String usuario = System.getProperty("inmoraiz.db.user", "root");
+    String clave = System.getProperty("inmoraiz.db.password", "");
+    return DriverManager.getConnection(url, usuario, clave);
+}
+%>

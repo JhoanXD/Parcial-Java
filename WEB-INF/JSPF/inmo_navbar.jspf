@@ -1,0 +1,26 @@
+<%@ page pageEncoding="UTF-8" %>
+<% boolean usuarioAutenticado = session.getAttribute("usuarioId") != null; %>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="<%= request.getContextPath() %>/index.jsp"><i class="bi bi-building-fill me-1"></i> Inmoraiz</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu"><span class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="<%= request.getContextPath() %>/index.jsp">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link" href="<%= request.getContextPath() %>/catalogo.jsp">Propiedades</a></li>
+        <li class="nav-item"><a class="nav-link" href="<%= request.getContextPath() %>/index.jsp#como-funciona">Como funciona</a></li>
+        <li class="nav-item"><a class="nav-link" href="<%= request.getContextPath() %>/index.jsp#ciudades">Ciudades</a></li>
+      </ul>
+      <div class="d-flex gap-2">
+        <% if (usuarioAutenticado) { %>
+        <span class="navbar-text text-white small align-self-center"><%= session.getAttribute("usuarioCorreo") %> · <%= session.getAttribute("usuarioRol") %></span>
+        <a href="<%= request.getContextPath() %>/dashboard.jsp" class="btn btn-outline-light">Mi panel</a>
+        <a href="<%= request.getContextPath() %>/logout.jsp" class="btn btn-primary">Cerrar sesión</a>
+        <% } else { %>
+        <a href="<%= request.getContextPath() %>/login.jsp" class="btn btn-outline-light">Iniciar sesión</a>
+        <a href="<%= request.getContextPath() %>/registro.jsp" class="btn btn-primary">Crear cuenta</a>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</nav>
