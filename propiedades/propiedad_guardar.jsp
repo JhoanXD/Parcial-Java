@@ -56,11 +56,11 @@ try {
                 }
 
                 String nombreSeguro = "propiedad-" + idPropiedad + "-" + System.currentTimeMillis() + extension;
-                Path carpeta = Paths.get(application.getRealPath("/uploads"));
+                Path carpeta = Paths.get(application.getRealPath("/uploads/imagenes"));
                 Files.createDirectories(carpeta);
                 archivo.write(carpeta.resolve(nombreSeguro).toString());
 
-                String url = request.getContextPath() + "/uploads/" + nombreSeguro;
+                String url = request.getContextPath() + "/uploads/imagenes/" + nombreSeguro;
                 try (PreparedStatement imagen = conexion.prepareStatement("INSERT INTO imagen_propiedad (id_propiedad,url,texto_alternativo,orden_imagen) VALUES (?, ?, ?, ?)")) {
                     imagen.setInt(1, idPropiedad);
                     imagen.setString(2, url);

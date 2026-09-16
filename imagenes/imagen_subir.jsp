@@ -16,10 +16,10 @@ if ("POST".equalsIgnoreCase(request.getMethod())) {
         String extension = nombreOriginal.contains(".") ? nombreOriginal.substring(nombreOriginal.lastIndexOf('.')).toLowerCase() : "";
         if (!(".jpg".equals(extension) || ".jpeg".equals(extension) || ".png".equals(extension) || ".webp".equals(extension))) throw new IllegalArgumentException("Formato no permitido");
         String nombreSeguro = "propiedad-" + id + "-" + System.currentTimeMillis() + extension;
-        Path carpeta = Paths.get(application.getRealPath("/uploads"));
+        Path carpeta = Paths.get(application.getRealPath("/uploads/imagenes"));
         Files.createDirectories(carpeta);
         archivo.write(carpeta.resolve(nombreSeguro).toString());
-        String url = request.getContextPath() + "/uploads/" + nombreSeguro;
+        String url = request.getContextPath() + "/uploads/imagenes/" + nombreSeguro;
         Class.forName("com.mysql.cj.jdbc.Driver");
         try (Connection conexion = abrirConexion(); PreparedStatement sentencia = conexion.prepareStatement("INSERT INTO imagen_propiedad (id_propiedad,url,texto_alternativo,orden_imagen) SELECT p.id_propiedad,?,?,COALESCE((SELECT MAX(orden_imagen)+1 FROM imagen_propiedad i WHERE i.id_propiedad=p.id_propiedad),1) FROM propiedad p INNER JOIN inmobiliaria i ON i.id_inmobiliaria=p.id_inmobiliaria WHERE p.id_propiedad=? AND i.id_usuario=?")) {
             sentencia.setString(1, url);
